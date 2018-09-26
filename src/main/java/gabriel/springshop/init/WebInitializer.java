@@ -1,5 +1,6 @@
 package gabriel.springshop.init;
 
+import gabriel.springshop.config.SecurityConfig;
 import gabriel.springshop.config.WebConfig;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
@@ -18,7 +19,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getServletConfigClasses() {
         return new Class<?>[] {
-                WebConfig.class
+                WebConfig.class,
+                SecurityConfig.class
         };
     }
 
