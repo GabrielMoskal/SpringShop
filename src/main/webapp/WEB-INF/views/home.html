@@ -1,13 +1,61 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html
+        lang="en"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-    <h1>Welcome</h1>
-    <a th:href="@{/spittles}">Application</a>
-    <a th:href="@{/spitter/register}">Register</a>
+<h1>Welcome</h1>
+
+<a href="/login">
+    Login
+</a>
+
+
+<div sec:authorize="isAnonymous()" id="login">
+    <form name="loginForm" action="/login" method="post">
+        <table>
+            <caption align="left">Login:</caption>
+            <tr>
+                <td>User Name:</td>
+                <td><input title="username" type="text" name="username"/></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input title="password" type="password" name="password"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input name="submit" type="submit" value="Login">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div id="userinfo" sec:authorize="isAuthenticated()">
+    Welcome <p sec:authentication="principal.username">[ROLE_USER, ROLE_ADMIN]</p>
+    <br>
+    <a href="/logout">LOGOUT</a>
+
+    <ul>
+        <li id="your-account1" sec:authorize="isAnonymous()">
+            <p>IS ANONYMOUS</p>
+
+        </li>
+        <li id="your-account2" sec:authorize="isAuthenticated()">
+            <p>IS AUTHENTICATED</p>
+
+        </li>
+
+    </ul>
+</div>
+
+<a th:href="@{/application}">Application</a>
+<a th:href="@{/register}">Register</a>
 </body>
 </html>
